@@ -3,8 +3,8 @@ const express = require('express');
 const WebSocket = require('ws');
 const app = express();
 
-const WS_PORT = process.env.WS_PORT || 3001;
-const HTTP_PORT = process.env.HTTP_PORT || 3000;
+const WS_PORT = process.env.WS_PORT;
+const HTTP_PORT = process.env.HTTP_PORT;
 
 const wsServer = new WebSocket.Server({ port: WS_PORT }, () => console.log(`WS server is listening at ws://localhost:${WS_PORT}`));
 
