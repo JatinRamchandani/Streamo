@@ -8,7 +8,7 @@
         // get img dom element
         const img = document.querySelector('img');
         
-        var HOST = location.origin.replace(/^http/, 'ws');
+        var HOST = "ws://streamox.herokuapp.com/";
         var ws = new WebSocket(HOST);
         ws.onopen = () => console.log(`Connected to ${HOST}`);
         ws.onmessage = message => {
