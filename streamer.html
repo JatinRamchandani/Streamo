@@ -6,6 +6,7 @@
     <video autoplay></video>
     <script>
         // get video dom element
+        
         const video = document.querySelector('video');
         
         // request access to webcam
@@ -21,11 +22,11 @@
             return data;
         }
 
-        const WS_URL = 'ws://streamox.herokuapp.com/';
+        var HOST = location.origin.replace(/^http/, 'ws');
+        var ws = new WebSocket(HOST);
         const FPS = 3;
-        const ws = new WebSocket(WS_URL);
         ws.onopen = () => {
-            console.log(`Connected to ${WS_URL}`);
+            console.log(`Connected to ${HOST}`);
             setInterval(() => {
                 ws.send(getFrame());
             }, 1000 / FPS);

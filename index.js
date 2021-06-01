@@ -1,12 +1,18 @@
 const path = require('path');
 const express = require('express');
-const WebSocket = require('ws');
-const app = express();
 
-const WS_PORT = process.env.PORT;
-const HTTP_PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
-const wsServer = new WebSocket.Server({ port: WS_PORT }, () => console.log(`WS server is listening at ws://localhost:${WS_PORT}`));
+const server = express();
+
+server.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+server.get('/client', function (req, res) { res.sendFile(path.resolve(__dirname, './client.html'))});
+server.get('/streamer', (req, res) => res.sendFile(path.resolve(__dirname, './streamer.html')));
+
+
+const { Server }= require('ws');
+const wsServer = new Server({ server });
 
 // array of connected websocket clients
 let connectedClients = [];
@@ -29,6 +35,5 @@ wsServer.on('connection', (ws, req) => {
 });
 
 // HTTP stuff
-app.get('/client', (req, res) => res.sendFile(path.resolve(__dirname, './client.html')));
-app.get('/streamer', (req, res) => res.sendFile(path.resolve(__dirname, './streamer.html')));
-app.listen(HTTP_PORT, () => console.log(`HTTP server listening at http://localhost:${HTTP_PORT}`));
+
+
