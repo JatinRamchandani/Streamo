@@ -5,14 +5,14 @@ const PORT = process.env.PORT || 3000;
 
 const server = express();
 
-server.listen(PORT, () => console.log(`Listening on ${PORT}`));
+let httpserver = server.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 server.get('/client', function (req, res) { res.sendFile(path.resolve(__dirname, './client.html'))});
 server.get('/streamer', (req, res) => res.sendFile(path.resolve(__dirname, './streamer.html')));
 
 
 const { Server }= require('ws');
-const wsServer = new Server({ server });
+const wsServer = new Server({ server: httpserver });
 
 // array of connected websocket clients
 let connectedClients = [];
