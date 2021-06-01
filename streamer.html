@@ -22,7 +22,7 @@
             return data;
         }
 
-        var HOST = "ws://streamox.herokuapp.com/"
+        var HOST = location.origin.replace(/^http/, 'ws')
         var ws = new WebSocket(HOST);
         const FPS = 3;
         ws.onopen = () => {
